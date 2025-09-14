@@ -1,9 +1,15 @@
 import React from 'react';
+import { useRoute } from "@react-navigation/native";
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Calendar, CircleCheck as CheckCircle, Circle, Clock, Droplets, Sun } from 'lucide-react-native';
 
 export default function RoadmapScreen() {
+  const route = useRoute();
+  const { userState } = route.params || {}; // 👈 get passed state
+
+  console.log("🚀 Roadmap received state:", userState);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -16,13 +22,14 @@ export default function RoadmapScreen() {
         {/* Current Season */}
         <View style={styles.currentSeasonCard}>
           <View style={styles.seasonHeader}>
-            <Text style={styles.seasonTitle}>Current Season - Kharif 2024</Text>
+            <Text style={styles.seasonTitle}>Current Season - Kharif 2025</Text>
             <View style={styles.seasonBadge}>
               <Sun size={16} color="#f2e8cf" />
               <Text style={styles.seasonBadgeText}>Active</Text>
             </View>
           </View>
-          <Text style={styles.seasonDates}>June - October 2024</Text>
+          <Text style={styles.seasonDates}>June - October, {userState?.toUpperCase()}</Text>
+
         </View>
 
         {/* Timeline */}
