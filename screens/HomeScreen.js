@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Image } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import profileIcon from "../assets/krishiLOGO.jpg";
 
 export default function HomeScreen({ navigation }) {
@@ -11,7 +12,6 @@ export default function HomeScreen({ navigation }) {
   ];
 
   const features = [
-    { title: "Smart Crop Recommendations", description: "AI-powered suggestions based on market demand" },
     { title: "Farming Roadmap", description: "Step-by-step guidance for successful cultivation" },
     { title: "Government Schemes", description: "Access to monetary schemes and subsidies" },
     { title: "Knowledge Hub", description: "Expert insights and farming tips" },
@@ -21,7 +21,7 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F2E8CF" }}>
       {/* Top Header with padding down */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Krishi Vikas</Text>
+        <Image source={profileIcon} style={styles.headerIcon} resizeMode="contain" />
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.topButton} onPress={() => navigation.navigate("Login")}>
             <Text style={styles.topButtonText}>Sign In</Text>
@@ -29,7 +29,6 @@ export default function HomeScreen({ navigation }) {
           <TouchableOpacity style={[styles.topButton, { backgroundColor: "#6A994E" }]} onPress={() => navigation.navigate("Register")}>
             <Text style={[styles.topButtonText, { color: "#fff" }]}>Register</Text>
           </TouchableOpacity>
-          <Image source={profileIcon} style={styles.iconImage} />
         </View>
       </View>
 
@@ -41,12 +40,7 @@ export default function HomeScreen({ navigation }) {
             Krishi Vikas helps farmers make data-driven decisions with market-based crop recommendations,
             farming guidance, and access to government schemes.
           </Text>
-          <TouchableOpacity
-            style={styles.ctaButton}
-            onPress={() => navigation.navigate("Register")}
-          >
-            <Text style={styles.ctaText}>Start Your Journey</Text>
-          </TouchableOpacity>
+          {/* --- "Start Your Journey" Button Removed From Here --- */}
         </View>
 
         {/* Stats Section */}
@@ -69,7 +63,7 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
 
-        {/* Features Section */}
+        {/* Features Section (This will now render only 3 items) */}
         <View style={styles.featuresSection}>
           <Text style={styles.sectionTitle}>Empowering Farmers with Technology</Text>
           {features.map((feature, i) => (
@@ -124,12 +118,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#A7C957",
   },
-  headerTitle: { fontSize: 22, fontWeight: "bold", color: "#386641" },
+  headerIcon: { width: 150, height: 40 },
   headerRight: { flexDirection: "row", alignItems: "center" },
-  topButton: { paddingHorizontal: 12, paddingVertical: 6, backgroundColor: "#F2E8CF", marginRight: 5, borderRadius: 5 },
+  topButton: { paddingHorizontal: 12, paddingVertical: 6, backgroundColor: "#F2E8CF", marginRight: 10, borderRadius: 5 },
   topButtonText: { fontSize: 12, color: "#386641", fontWeight: "bold" },
-  iconImage: { width: 45, height: 28, borderRadius: 5 },
-
+  
   heroSection: { backgroundColor: "#386641", padding: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 },
   heroTitle: { color: "#F2E8CF", fontSize: 28, fontWeight: "bold", marginBottom: 10 },
   heroSubtitle: { color: "#F2E8CF", fontSize: 16, marginBottom: 15 },
