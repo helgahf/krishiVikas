@@ -8,24 +8,21 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { SafeAreaView } from "react-native-safe-area-context"
-
-import profileIcon from "../assets/krishiLOGO.jpg"; // Correct path
+import profileIcon from "../assets/krishiLOGO.jpg";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-   const handleLogin = () => {
-    // This part stays the same to check if the fields are filled
+  const handleLogin = () => {
     if (!email || !password) {
       Alert.alert("Error", "Please fill in all fields.");
       return;
     }
-    
-    // This is the new line that navigates to the Roadmap screen
-    navigation.navigate("Roadmap");
+    // --- CHANGE: Navigate to Profile instead of Roadmap ---
+    navigation.navigate("Profile");
   };
 
   const handleForgotPassword = () => {
@@ -34,13 +31,11 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F2E8CF" }}>
-      {/* HEADER BAR */}
       <View style={styles.header}>
         <View style={{ flex: 1 }} />
         <Image source={profileIcon} style={styles.iconImage} resizeMode="contain" />
       </View>
 
-      {/* LOGIN FORM */}
       <View style={styles.container}>
         <Text style={styles.pageTitle}>Welcome Back</Text>
         <Text style={styles.subtitle}>Log in to continue smart farming</Text>
@@ -82,8 +77,8 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#fff",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
@@ -137,7 +132,7 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     color: "#BC4749",
-    marginTop: 10,
+    marginTop: 15,
     textDecorationLine: "underline",
   },
   registerContainer: {

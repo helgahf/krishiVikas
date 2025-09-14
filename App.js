@@ -5,6 +5,8 @@ import LoginScreen from "./screens/LoginScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import HomeScreen from "./screens/HomeScreen";
 import RoadmapScreen from "./screens/RoadmapScreen";
+import SchemesScreen from "./screens/SchemesScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +21,16 @@ export default function App() {
           name="Roadmap" 
           component={RoadmapScreen} 
           options={{ title: 'Farming Roadmap' }} // This shows a header with a title and back button
+        />
+        <Stack.Screen 
+          name="Schemes" 
+          component={SchemesScreen} 
+          options={{ title: 'Government Schemes' }} 
+        />
+         <Stack.Screen 
+          name="Profile" 
+          component={ProfileScreen} 
+          options={{ headerShown: false }} 
         />
       </Stack.Navigator>
     </NavigationContainer>

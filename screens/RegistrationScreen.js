@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigation } from '@react-navigation/native';
+
 import {
   View,
   Text,
@@ -26,6 +28,8 @@ export default function RegistrationScreen() {
     confirmPassword: "",
   });
 
+  const navigation = useNavigation();
+
   const handleChange = (key, value) => {
     setFormData({ ...formData, [key]: value });
   };
@@ -35,6 +39,13 @@ export default function RegistrationScreen() {
       Alert.alert("Error", "Passwords do not match!");
       return;
     }
+
+     // ✅ Navigate to Roadmap screen and pass state
+    navigation.navigate("Roadmap", { userState: formData.state });
+
+    console.log("Form Data:", formData);
+  
+  
     Alert.alert("Success", "Registration Successful! (Dummy)");
     console.log("Form Data:", formData);
   };
