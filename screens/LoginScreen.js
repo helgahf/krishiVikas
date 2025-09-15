@@ -21,8 +21,8 @@ export default function LoginScreen({ navigation }) {
       Alert.alert("Error", "Please fill in all fields.");
       return;
     }
-    // --- CHANGE: Navigate to Profile instead of Roadmap ---
-    navigation.navigate("Profile");
+    // ✅ Navigate to Dashboard after successful login
+    navigation.navigate("Landing");
   };
 
   const handleForgotPassword = () => {

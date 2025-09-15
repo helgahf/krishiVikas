@@ -5,11 +5,10 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TrendingUp, MapPin, Coins, BookOpen, ArrowRight, Cloud, Thermometer, Droplets, Wind } from "lucide-react-native"; // Replace with working icons or use vector icons
 
+// Example user data
 const user = {
   name: "John Doe",
   location: "Punjab",
@@ -20,37 +19,6 @@ const user = {
 };
 
 export default function LandingPage({ navigation }) {
-  const quickActions = [
-    {
-      title: "Get Recommendations",
-      description: "Discover profitable crops for your region",
-      icon: TrendingUp,
-      screen: "RecommendationScreen",
-      color: "#4CAF50", // green
-    },
-    {
-      title: "View Roadmap",
-      description: "Follow your farming timeline",
-      icon: MapPin,
-      screen: "Roadmap",
-      color: "#2196F3", // blue
-    },
-    {
-      title: "Browse Schemes",
-      description: "Find government funding opportunities",
-      icon: Coins,
-      screen: "Schemes",
-      color: "#FFC107", // yellow
-    },
-    {
-      title: "Read Blog",
-      description: "Latest farming insights and tips",
-      icon: BookOpen,
-      screen: "BlogScreen", // add this screen if needed
-      color: "#9C27B0", // purple
-    },
-  ];
-
   const weatherData = {
     temperature: 28,
     humidity: 65,
@@ -72,6 +40,25 @@ export default function LandingPage({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header with Profile and Chat buttons */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Krishi Vikas</Text>
+        <View style={styles.headerButtons}>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => navigation.navigate("Profile")}
+          >
+            <Text style={styles.headerButtonText}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => navigation.navigate("Chat")}
+          >
+            <Text style={styles.headerButtonText}>Chat</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* Welcome Section */}
         <View style={styles.welcomeBox}>
@@ -91,26 +78,37 @@ export default function LandingPage({ navigation }) {
         {/* Quick Actions */}
         <Text style={styles.sectionTitle}>Quick Actions</Text>
         <View style={styles.actionsContainer}>
-          {quickActions.map((action, index) => {
-            const Icon = action.icon;
-            return (
-              <TouchableOpacity
-                key={index}
-                style={styles.actionCard}
-                onPress={() => navigation.navigate(action.screen)}
-              >
-                <View style={[styles.iconContainer, { backgroundColor: action.color }]}>
-                  <Icon size={24} color="#fff" />
-                </View>
-                <Text style={styles.actionTitle}>{action.title}</Text>
-                <Text style={styles.actionDesc}>{action.description}</Text>
-                <View style={styles.actionFooter}>
-                  <Text style={styles.actionLink}>Get Started</Text>
-                  <ArrowRight size={16} color="#4CAF50" />
-                </View>
-              </TouchableOpacity>
-            );
-          })}
+          <TouchableOpacity
+            style={styles.actionCard}
+            onPress={() => navigation.navigate("RecommendationScreen")}
+          >
+            <Text style={styles.actionTitle}>Get Recommendations</Text>
+            <Text style={styles.actionDesc}>Discover profitable crops for your region</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.actionCard}
+            onPress={() => navigation.navigate("Roadmap")}
+          >
+            <Text style={styles.actionTitle}>View Roadmap</Text>
+            <Text style={styles.actionDesc}>Follow your farming timeline</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.actionCard}
+            onPress={() => navigation.navigate("Schemes")}
+          >
+            <Text style={styles.actionTitle}>Browse Schemes</Text>
+            <Text style={styles.actionDesc}>Find government funding opportunities</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.actionCard}
+            onPress={() => navigation.navigate("BlogScreen")}
+          >
+            <Text style={styles.actionTitle}>Read Blog</Text>
+            <Text style={styles.actionDesc}>Latest farming insights and tips</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Weather Section */}
@@ -156,9 +154,36 @@ export default function LandingPage({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F2E8CF" },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#386641",
+    padding: 15,
+  },
+  headerTitle: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  headerButtons: {
+    flexDirection: "row",
+  },
+  headerButton: {
+    marginLeft: 10,
+    backgroundColor: "#A7C957",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+  },
+  headerButtonText: {
+    color: "#386641",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
   scrollContainer: { padding: 16 },
   welcomeBox: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#386641",
     padding: 20,
     borderRadius: 10,
     marginBottom: 20,
@@ -204,30 +229,16 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
   },
-  iconContainer: {
-    borderRadius: 30,
-    padding: 10,
-    marginBottom: 8,
-    alignSelf: "flex-start",
-  },
   actionTitle: {
     fontSize: 14,
     fontWeight: "bold",
+    color: "#386641",
     marginBottom: 4,
   },
   actionDesc: {
     fontSize: 12,
     color: "#666",
     marginBottom: 8,
-  },
-  actionFooter: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  actionLink: {
-    fontSize: 12,
-    color: "#4CAF50",
-    fontWeight: "bold",
   },
   weatherBox: {
     backgroundColor: "#fff",
@@ -247,7 +258,7 @@ const styles = StyleSheet.create({
   weatherData: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#333",
+    color: "#386641",
   },
   forecastContainer: {
     flexDirection: "row",

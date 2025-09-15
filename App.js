@@ -8,7 +8,9 @@ import HomeScreen from "./screens/HomeScreen";
 import RoadmapScreen from "./screens/RoadmapScreen";
 import SchemesScreen from "./screens/SchemesScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import RecommendationScreen from "./screens/RecommendationScreen"; // ✅ added
+import RecommendationScreen from "./screens/RecommendationScreen"; // ✅ existing
+import LandingPage from "./screens/LandingPage"; // ✅ correct
+import BlogScreen from "./screens/BlogScreen"; // ✅ added
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,8 @@ export default function App() {
           component={RecommendationScreen} 
           options={{ headerShown: false }} 
         />
+       <Stack.Screen name="Landing" component={LandingPage} options={{ headerShown: false }} />
+
         <Stack.Screen 
           name="Roadmap" 
           component={RoadmapScreen} 
@@ -39,6 +43,8 @@ export default function App() {
           component={ProfileScreen} 
           options={{ headerShown: false }} 
         />
+        <Stack.Screen name="BlogScreen" component={BlogScreen} options={{ headerShown: false }} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

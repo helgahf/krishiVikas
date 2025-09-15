@@ -1,0 +1,103 @@
+[33mcommit 1870f3513ae7b30f3d332c447a35f62d9f3f3615[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mPARAKH[m[33m, [m[1;31morigin/PARAKH[m[33m)[m
+Author: parakhsingh05 <parakhsingh0205@gmail.com>
+Date:   Mon Sep 15 09:35:34 2025 +0530
+
+    Added RecommendationScreen.js and updated App.js, RegistrationScreen, RoadmapScreen, package files
+
+ App.js                          |  13 [32m++[m[31m-[m
+ package-lock.json               | 197 [32m+++++++++++++++++++++++++++++++++++++++[m[31m-[m
+ package.json                    |   4 [32m+[m[31m-[m
+ screens/RecommendationScreen.js |  97 [32m++++++++++++++++++++[m
+ screens/RegistrationScreen.js   |  16 [32m++[m[31m--[m
+ screens/RoadmapScreen.js        | 127 [32m++++++++++++[m[31m--------------[m
+ 6 files changed, 372 insertions(+), 82 deletions(-)
+
+[33mcommit d29a43d629c0e9db19ec2b637ccaf15a9a39f5a2[m
+Author: parakhsingh05 <parakhsingh0205@gmail.com>
+Date:   Mon Sep 15 04:12:54 2025 +0530
+
+    Add files via upload
+    
+    Added Recommend_crop.json
+
+ assets/Recommend_crop.json | 3414 [32m++++++++++++++++++++++++++++++++++++++++++++[m
+ 1 file changed, 3414 insertions(+)
+
+[33mcommit 112ee41b14c82ebf69e36c0d7b108d84f37af2aa[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/added_profile_screen[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Parvani Nair <parvani.snair@gmail.com>
+Date:   Sun Sep 14 22:49:42 2025 +0530
+
+    commit 3
+
+ App.js                   |  12 [32m++[m
+ screens/HomeScreen.js    |  25 [32m++[m[31m-[m
+ screens/LoginScreen.js   |  23 [32m++[m[31m-[m
+ screens/ProfileScreen.js | 315 [32m+++++++++++++++++++++++++++++++++++++[m
+ screens/SchemesScreen.js | 399 [32m+++++++++++++++++++++++++++++++++++++++++++++++[m
+ 5 files changed, 744 insertions(+), 30 deletions(-)
+
+[33mcommit eab6dead59cae6f4177ed5ad82d1f405814f759e[m
+Author: Parvani Nair <parvani.snair@gmail.com>
+Date:   Sun Sep 14 21:16:27 2025 +0530
+
+    commit 2
+
+ App.js                   |   6 [32m+[m
+ package-lock.json        | 181 [32m+++++++++++++++++++++++[m
+ package.json             |   5 [32m+[m[31m-[m
+ screens/LoginScreen.js   |   8 [32m+[m[31m-[m
+ screens/RoadmapScreen.js | 366 [32m+++++++++++++++++++++++++++++++++++++++++++++++[m
+ 5 files changed, 561 insertions(+), 5 deletions(-)
+
+[33mcommit e1ab5c91f17266649cdab6d0650c95f0b7410517[m
+Author: Parvani Nair <parvani.snair@gmail.com>
+Date:   Sun Sep 14 20:53:33 2025 +0530
+
+    commit2'
+
+ screens/HomeScreen.js         | 2 [32m+[m[31m-[m
+ screens/LoginScreen.js        | 2 [32m+[m[31m-[m
+ screens/RegistrationScreen.js | 4 [32m++[m[31m--[m
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+[33mcommit de3a9af080154445ba94de9ae80161f6d076eaa9[m
+Author: Parvani Nair <parvani.snair@gmail.com>
+Date:   Sun Sep 14 19:34:39 2025 +0530
+
+    home screen added
+
+ App.js                        | 197 [32m+++[m[31m-------------------------[m
+ package-lock.json             | 297 [32m+++++++++++++++++++++++++++++++++++++++++[m[31m-[m
+ package.json                  |   6 [32m+[m[31m-[m
+ screens/HomeScreen.js         | 157 [32m++++++++++++++++++++++[m
+ screens/LoginScreen.js        | 155 [32m++++++++++++++++++++++[m
+ screens/RegistrationScreen.js | 119 [32m+++++++++++++++++[m
+ 6 files changed, 747 insertions(+), 184 deletions(-)
+
+[33mcommit 89435da7b245e58250d96ddb4c38f8be3acbe918[m
+Author: Parvani Nair <parvani.snair@gmail.com>
+Date:   Sun Sep 14 18:18:34 2025 +0530
+
+    added app logo and registration page
+
+ App.js                | 187 [32m+++++++++++++++++++++++++++++++++++++++++++++++[m[31m---[m
+ assets/krishiLOGO.jpg | Bin [31m0[m -> [32m4555[m bytes
+ 2 files changed, 177 insertions(+), 10 deletions(-)
+
+[33mcommit e4ab5122a9613e5ff6f6c47a181a9579ff8443bf[m
+Author: Parvani Nair <parvani.snair@gmail.com>
+Date:   Sun Sep 14 17:56:17 2025 +0530
+
+    Initial commit
+
+ .gitignore               |   41 [32m+[m
+ App.js                   |   20 [32m+[m
+ app.json                 |   29 [32m+[m
+ assets/adaptive-icon.png |  Bin [31m0[m -> [32m17547[m bytes
+ assets/favicon.png       |  Bin [31m0[m -> [32m1466[m bytes
+ assets/icon.png          |  Bin [31m0[m -> [32m22380[m bytes
+ assets/splash-icon.png   |  Bin [31m0[m -> [32m17547[m bytes
+ index.js                 |    8 [32m+[m
+ package-lock.json        | 9122 [32m++++++++++++++++++++++++++++++++++++++++++++++[m
+ package.json             |   19 [32m+[m
+ 10 files changed, 9239 insertions(+)

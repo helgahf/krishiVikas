@@ -37,7 +37,7 @@ export default function RegistrationScreen({ navigation }) { // ✅ added naviga
     }
 
     // ✅ Navigate to next screen (example: Recommendation) with dummy data
-    navigation.navigate("RecommendationScreen", {
+    navigation.navigate("Login", {
       userState: formData.state,
       userCrop: formData.crop,
     });
