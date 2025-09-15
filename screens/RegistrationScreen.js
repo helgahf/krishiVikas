@@ -10,10 +10,12 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { collection, addDoc } from "firebase/firestore"; // ✅ Firestore methods
+import { firestore } from "../firebase"; // ✅ Import Firestore instance
 
-import profileIcon from "../assets/krishiLOGO.jpg"; // ✅ Corrected path
+import profileIcon from "../assets/krishiLOGO.jpg";
 
-export default function RegistrationScreen({ navigation }) { // ✅ added navigation
+export default function RegistrationScreen() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -27,20 +29,48 @@ export default function RegistrationScreen({ navigation }) { // ✅ added naviga
   });
 
   const handleChange = (key, value) => {
-    setFormData({ ...formData, [key]: value });
+    setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (formData.password !== formData.confirmPassword) {
       Alert.alert("Error", "Passwords do not match!");
       return;
     }
 
-    // ✅ Navigate to next screen (example: Recommendation) with dummy data
-    navigation.navigate("Login", {
-      userState: formData.state,
-      userCrop: formData.crop,
-    });
+    try {
+      // ✅ Correct collection reference
+      const farmersCollection = collection(firestore, "farmers");
+
+      await addDoc(farmersCollection, {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        state: formData.state,
+        pincode: formData.pincode,
+        farmSize: formData.farmSize,
+        crop: formData.crop,
+        password: formData.password,
+        createdAt: new Date().toISOString(),
+      });
+
+      Alert.alert("Success", "Registration Successful!");
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        state: "",
+        pincode: "",
+        farmSize: "",
+        crop: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      Alert.alert("Error", "Failed to register. Check console for details.");
+    }
+
   };
 
   const handleIconPress = () => {

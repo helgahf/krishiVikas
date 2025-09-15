@@ -9,33 +9,77 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { firestore } from "../firebase"; // ✅ Firestore instance
 import profileIcon from "../assets/krishiLOGO.jpg";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert("Error", "Please fill in all fields.");
       return;
     }
-    // ✅ Navigate to Dashboard after successful login
-    navigation.navigate("Landing");
+
+    try {
+      const q = query(collection(firestore, "farmers"), where("email", "==", email));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        Alert.alert("Error", "No user found with this email.");
+        return;
+      }
+
+      let userData = null;
+      let passwordIncorrect = false; // A flag to track if we found the user but the password was wrong
+
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        
+        // --- DEBUGGING LOGS ---
+        // Let's see exactly what we're comparing
+        console.log("Password from Input:", password);
+        console.log("Password from DB:", data.password);
+        // --- END DEBUGGING ---
+
+        if (data.password === password) {
+          userData = { id: docSnap.id, ...data };
+        } else {
+          // If we find the user but the password doesn't match, set the flag
+          passwordIncorrect = true;
+        }
+      });
+
+      if (userData) {
+        Alert.alert("Success", "Login Successful!");
+        navigation.navigate("Landing", { user: userData });
+      } else if (passwordIncorrect) {
+        Alert.alert("Error", "Incorrect password.");
+      } else {
+        // This case should not be hit if the email query works, but it's good practice
+        Alert.alert("Error", "An unknown error occurred.");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      Alert.alert("Error", "Failed to login. Please try again.");
+    }
   };
 
   const handleForgotPassword = () => {
-    Alert.alert("Forgot Password", "This is a placeholder action.");
+    navigation.navigate("ForgotPassword"); // ✅ Go to ForgotPasswordScreen
   };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F2E8CF" }}>
+      {/* HEADER */}
       <View style={styles.header}>
         <View style={{ flex: 1 }} />
         <Image source={profileIcon} style={styles.iconImage} resizeMode="contain" />
       </View>
 
+      {/* LOGIN FORM */}
       <View style={styles.container}>
         <Text style={styles.pageTitle}>Welcome Back</Text>
         <Text style={styles.subtitle}>Log in to continue smart farming</Text>
