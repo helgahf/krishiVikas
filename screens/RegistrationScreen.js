@@ -13,7 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import profileIcon from "../assets/krishiLOGO.jpg"; // ✅ Corrected path
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({ navigation }) { // ✅ added navigation
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -35,8 +35,12 @@ export default function RegistrationScreen() {
       Alert.alert("Error", "Passwords do not match!");
       return;
     }
-    Alert.alert("Success", "Registration Successful! (Dummy)");
-    console.log("Form Data:", formData);
+
+    // ✅ Navigate to next screen (example: Recommendation) with dummy data
+    navigation.navigate("RecommendationScreen", {
+      userState: formData.state,
+      userCrop: formData.crop,
+    });
   };
 
   const handleIconPress = () => {
@@ -98,12 +102,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end", // ✅ ensures icon is on right side
+    justifyContent: "flex-end",
     borderBottomWidth: 1,
     borderBottomColor: "#A7C957",
   },
   iconButton: { padding: 5 },
-  iconImage: { width: 150, height: 60, borderRadius: 30 }, // ✅ kept your original size
+  iconImage: { width: 150, height: 60, borderRadius: 30 },
   container: { flexGrow: 1, alignItems: "center", padding: 20 },
   pageTitle: { fontSize: 28, fontWeight: "bold", color: "#386641", marginBottom: 5 },
   subtitle: { fontSize: 16, color: "#6A994E", marginBottom: 20, textAlign: "center" },

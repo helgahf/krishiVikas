@@ -3,33 +3,35 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Calendar, CircleCheck as CheckCircle, Circle, Clock, Droplets, Sun } from 'lucide-react-native';
 
-export default function RoadmapScreen() {
+export default function RoadmapScreen({ route }) {
+  const { cropData } = route.params;// ✅ get data from navigation params
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Farming Roadmap</Text>
-          <Text style={styles.subtitle}>Your personalized farming calendar</Text>
+          <Text style={styles.subtitle}>{cropData.crop} - Your personalized farming guide</Text>
         </View>
 
         {/* Current Season */}
         <View style={styles.currentSeasonCard}>
           <View style={styles.seasonHeader}>
-            <Text style={styles.seasonTitle}>Current Season - Kharif 2024</Text>
+            <Text style={styles.seasonTitle}>Current Crop</Text>
             <View style={styles.seasonBadge}>
               <Sun size={16} color="#f2e8cf" />
               <Text style={styles.seasonBadgeText}>Active</Text>
             </View>
           </View>
-          <Text style={styles.seasonDates}>June - October 2024</Text>
+          <Text style={styles.seasonDates}>{cropData.State.trim()}</Text>
         </View>
 
         {/* Timeline */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Your Farming Timeline</Text>
-          
-          {/* Completed Task */}
+
+          {/* Completed Task: Soil Preparation */}
           <View style={styles.timelineItem}>
             <View style={styles.timelineLeft}>
               <CheckCircle size={24} color="#a7c957" />
@@ -38,11 +40,11 @@ export default function RoadmapScreen() {
             <View style={styles.timelineContent}>
               <View style={styles.taskCard}>
                 <View style={styles.taskHeader}>
-                  <Text style={styles.taskTitle}>Land Preparation</Text>
-                  <Text style={styles.taskDate}>June 15, 2024</Text>
+                  <Text style={styles.taskTitle}>Soil Preparation</Text>
+                  <Text style={styles.taskDate}>Recommended</Text>
                 </View>
                 <Text style={styles.taskDescription}>
-                  Soil testing, plowing, and fertilizer application completed
+                  Soil Type: {cropData["Soil Type"]}
                 </Text>
                 <View style={styles.taskStatus}>
                   <Text style={styles.completedStatus}>Completed</Text>
@@ -51,7 +53,7 @@ export default function RoadmapScreen() {
             </View>
           </View>
 
-          {/* Current Task */}
+          {/* Current Task: Nutrient Management */}
           <View style={styles.timelineItem}>
             <View style={styles.timelineLeft}>
               <Clock size={24} color="#bc4749" />
@@ -60,22 +62,15 @@ export default function RoadmapScreen() {
             <View style={styles.timelineContent}>
               <View style={[styles.taskCard, styles.currentTask]}>
                 <View style={styles.taskHeader}>
-                  <Text style={styles.taskTitle}>Sowing & Planting</Text>
-                  <Text style={styles.taskDate}>July 1-15, 2024</Text>
+                  <Text style={styles.taskTitle}>Nutrient Management</Text>
+                  <Text style={styles.taskDate}>Ongoing</Text>
                 </View>
                 <Text style={styles.taskDescription}>
-                  Plant tomato seeds with proper spacing and irrigation setup
+                  Nutrient Needs: {cropData["Nutrient Needs of the crop"]}
                 </Text>
-                <View style={styles.taskDetails}>
-                  <View style={styles.detailItem}>
-                    <Droplets size={14} color="#6a994e" />
-                    <Text style={styles.detailText}>Water: 2-3 times/week</Text>
-                  </View>
-                  <View style={styles.detailItem}>
-                    <Sun size={14} color="#6a994e" />
-                    <Text style={styles.detailText}>Sunlight: 6-8 hours</Text>
-                  </View>
-                </View>
+                <Text style={styles.taskDescription}>
+                  Recommended Fertilizers: {cropData["Recommended Fertilizers"]}
+                </Text>
                 <View style={styles.taskStatus}>
                   <Text style={styles.inProgressStatus}>In Progress</Text>
                 </View>
@@ -86,7 +81,7 @@ export default function RoadmapScreen() {
             </View>
           </View>
 
-          {/* Upcoming Task */}
+          {/* Upcoming Task: Water Requirement */}
           <View style={styles.timelineItem}>
             <View style={styles.timelineLeft}>
               <Circle size={24} color="#6a994e" />
@@ -95,11 +90,11 @@ export default function RoadmapScreen() {
             <View style={styles.timelineContent}>
               <View style={styles.taskCard}>
                 <View style={styles.taskHeader}>
-                  <Text style={styles.taskTitle}>First Fertilizer Application</Text>
-                  <Text style={styles.taskDate}>July 30, 2024</Text>
+                  <Text style={styles.taskTitle}>Water Requirement</Text>
+                  <Text style={styles.taskDate}>Upcoming</Text>
                 </View>
                 <Text style={styles.taskDescription}>
-                  Apply NPK fertilizer and organic compost for healthy growth
+                  {cropData["Water Requirement (mm/season)"]} mm per season
                 </Text>
                 <View style={styles.taskStatus}>
                   <Text style={styles.upcomingStatus}>Upcoming</Text>
@@ -108,7 +103,30 @@ export default function RoadmapScreen() {
             </View>
           </View>
 
-          {/* ... other tasks can be added here ... */}
+          {/* Another Task: Growth Period */}
+          <View style={styles.timelineItem}>
+            <View style={styles.timelineLeft}>
+              <Circle size={24} color="#6a994e" />
+              <View style={styles.timelineLine} />
+            </View>
+            <View style={styles.timelineContent}>
+              <View style={styles.taskCard}>
+                <View style={styles.taskHeader}>
+                  <Text style={styles.taskTitle}>Growth Period</Text>
+                  <Text style={styles.taskDate}>Plan</Text>
+                </View>
+                <Text style={styles.taskDescription}>
+                  Best Sowing Period: {cropData["Best Sowing Period"]}
+                </Text>
+                <Text style={styles.taskDescription}>
+                  Duration: {cropData["Growth Duration (days)"]} days
+                </Text>
+                <View style={styles.taskStatus}>
+                  <Text style={styles.upcomingStatus}>Upcoming</Text>
+                </View>
+              </View>
+            </View>
+          </View>
 
           {/* Harvest Task */}
           <View style={styles.timelineItem}>
@@ -118,25 +136,29 @@ export default function RoadmapScreen() {
             <View style={styles.timelineContent}>
               <View style={styles.taskCard}>
                 <View style={styles.taskHeader}>
-                  <Text style={styles.taskTitle}>Harvest Time</Text>
-                  <Text style={styles.taskDate}>September 20-30, 2024</Text>
+                  <Text style={styles.taskTitle}>Harvest & Risks</Text>
+                  <Text style={styles.taskDate}>Expected</Text>
                 </View>
                 <Text style={styles.taskDescription}>
-                  Harvest mature tomatoes when they reach optimal ripeness
+                  Expected Yield: {cropData["Expected Yield (kg/acre)"]}
                 </Text>
-                <Text style={styles.expectedYield}>Expected Yield: 12-15 tons/acre</Text>
+                <Text style={styles.taskDescription}>
+                  Pest/Disease Alerts: {cropData["Pest/Disease Alerts"]}
+                </Text>
                 <View style={styles.taskStatus}>
                   <Text style={styles.upcomingStatus}>Upcoming</Text>
                 </View>
               </View>
             </View>
           </View>
+
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
+// ✅ styles unchanged
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -325,42 +347,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#a7c957',
     marginBottom: 8,
-  },
-  nextSeasonCard: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  nextSeasonTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#386641',
-    marginBottom: 4,
-  },
-  nextSeasonDates: {
-    fontSize: 14,
-    color: '#6a994e',
-    marginBottom: 8,
-  },
-  nextSeasonCrops: {
-    fontSize: 14,
-    color: '#6a994e',
-    marginBottom: 16,
-  },
-  planButton: {
-    backgroundColor: '#386641',
-    paddingVertical: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  planButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
+  }
 });
